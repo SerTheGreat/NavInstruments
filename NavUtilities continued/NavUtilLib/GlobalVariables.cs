@@ -400,8 +400,10 @@ namespace NavUtilLib
             public static bool isLoaded = false;
             
             public static GameObject audioplayer; 
-            public static AudioSource markerAudio;
+            private static AudioSource markerAudio;
             //public static AudioSource playOnce;
+
+            private bool isPlaying = false;
 
             public static void initializeAudio()
             {
@@ -440,9 +442,41 @@ namespace NavUtilLib
                     throw;
                 }
 
-
                 isLoaded = true;
+            }
+
+            public static void PlayClick()
+            {
+                Audio.markerAudio.PlayOneShot(GameDatabase.Instance.GetAudioClip(Settings.getAudioPath() + "click"));
+            }
+
+            public void PlayOuter()
+            {
+                Audio.markerAudio.PlayOneShot(GameDatabase.Instance.GetAudioClip(Settings.getAudioPath() + "outer"));
+                this.isPlaying = true;
+            }
+
+            public void PlayMiddle()
+            {
+                Audio.markerAudio.PlayOneShot(GameDatabase.Instance.GetAudioClip(Settings.getAudioPath() + "middle"));
+                this.isPlaying = true;
+            }
+
+            public void PlayInner()
+            {
+                Audio.markerAudio.PlayOneShot(GameDatabase.Instance.GetAudioClip(Settings.getAudioPath() + "inner"));
+                this.isPlaying = true;
+            }
+
+            public void Stop()
+            {
+                if (this.isPlaying)
+                {
+                    Audio.markerAudio.Stop();
+                    this.isPlaying = false;
+                }
             }
         }
     }
 }
+
